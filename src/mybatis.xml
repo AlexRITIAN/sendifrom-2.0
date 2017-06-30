@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- 主要的配置：数据库连接信息 和 sql映射文件 -->
+	<!-- 引用属性配置文件 -->
+	<properties resource="jdbc.properties" />
+
+	<typeAliases>
+		<package name="beans" />
+	</typeAliases>
+
+	<!-- <typeHandlers>
+		<typeHandler handler="org.mybatis.example.ExampleTypeHandler" />
+	</typeHandlers> -->
+	<!-- 配置mybatis的环境信息 -->
+	<!-- default属性：指定当前mybaits使用的环境信息 -->
+	<environments default="myDeveloper">
+
+		<!-- 开发环境 -->
+		<environment id="myDeveloper">
+			<!-- 事务管理器 type:事务管理器的类型 JDBC:使用连接对象的提交和回滚 ，使用Connection的commit(),rollback() 
+				MANAGED:由容器管理事务（spring是容器） -->
+			<transactionManager type="JDBC" />
+
+			<!-- 配置数据源（数据库的连接信息） type:数据源的类型 POOLED:使用数据库的连接池 UNPOOLED:不使用连接池，每次使用连接前创建连接，使用完毕后关闭连接 
+				JNDI:java命名与目录服务 -->
+			<dataSource type="POOLED">
+				<property name="driver" value="${jdbc.driver}" />
+				<property name="url" value="${jdbc.url}" />
+				<property name="username" value="${jdbc.username}" />
+				<property name="password" value="${jdbc.password}" />
+			</dataSource>
+		</environment>
+
+	</environments>
+
+	<!-- 配置sql映射文件 -->
+	<mappers>
+		<package name="com.lenovo.weixin.dao" />
+		<!-- 指定配置的在磁盘目录 -->
+		<!-- <mapper url="file:///D:\dtds\studentMapper.xml"/> -->
+	</mappers>
+
+
+
+</configuration>

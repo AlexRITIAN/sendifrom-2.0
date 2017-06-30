@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lenovo.weixin.dao.InfromDao">
+
+	<insert id="insert" parameterType="com.lenovo.weixin.beans.InfromBean">
+		insert into jenkins(name,infrom,creat_time,edit_time) values(#{name},#{infrom},#{creat_time},#{edit_time}) ON DUPLICATE KEY UPDATE infrom=#{infrom},edit_time=#{edit_time}
+	</insert>
+
+	<insert id="insertByList" parameterType="java.util.List" useGeneratedKeys="true">
+		insert into jenkins(name,infrom,creat_time,edit_time) values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(#{item.name,jdbcType=VARCHAR},#{item.infrom},#{item.creat_time},#{item.edit_time})
+		</foreach>
+			ON DUPLICATE KEY UPDATE infrom=values(infrom),edit_time=values(edit_time)
+	</insert>
+
+	<select id="selectByName" parameterType="String" resultType="com.lenovo.weixin.beans.InfromBean">
+		select id,name,infrom,creat_time,edit_time from jenkins where name=#{name}
+	</select>
+	
+	<select id="selectById" parameterType="String" resultType="com.lenovo.weixin.beans.InfromBean">
+		select id,name,infrom,creat_time,edit_time from jenkins where name=#{name}
+	</select>
+</mapper>
